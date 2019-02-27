@@ -1,0 +1,242 @@
+html {
+  font-family: Helvetica, sans-serif;
+}
+
+html {
+  font-size: 2.3vw;
+}
+
+body {
+  margin: 0;
+  background-color: teal;
+  color: #fff;
+}
+
+a {
+  color: #fff;
+  font-weight: bold;
+}
+
+a:focus,
+a:hover {
+  color: black;
+}
+
+.game {
+  grid-gap: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  grid-template-rows: auto;
+}
+
+main,
+aside,
+header {
+  padding: 20px;
+}
+
+main {
+  align-items: start;
+}
+
+aside {
+  font-size: 0.7rem;
+  grid-row: span 3;
+  background-color: #999;
+  max-height: 100vh;
+  overflow: auto;
+  color: #333;
+}
+
+aside ul,
+aside li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media screen and (max-width: 768px) {
+  .game {
+    grid-template-columns: 1fr;
+  }
+  aside {
+    padding-top: 0;
+    padding-bottom: 0;
+    position: fixed;
+    bottom: 0;
+    max-height: 50px;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+  }
+  aside li {
+    display: inline-block;
+    padding-right: 1rem;
+  }
+}
+
+/* card */
+
+main {
+  display: grid;
+  /* grid-template-columns: repeat(2, 1fr); */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 50px;
+}
+
+.btn {
+  background-color: #ccc;
+  margin-bottom: 0.5rem;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  color: black;
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
+/* play <button> */
+[data-play] {
+  font-size: 2rem;
+  background: goldenrod;
+}
+
+[disabled] {
+  opacity: 0.4;
+}
+
+.bubble {
+  background-color: goldenrod;
+  color: rgba(0, 0, 0, 0.8);
+  min-width: 3rem;
+  height: 3rem;
+  line-height: 3rem;
+  border-radius: 0 0 1rem 0;
+  padding: 0 1rem;
+  box-sizing: border-box;
+  font-weight: bold;
+  text-align: center;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  transform: translateX(-10px) translateY(-10px);
+  font-size: 1.2rem;
+  z-index: 100;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25),
+    1px 1px 1px rgba(255, 255, 255, 0.5) inset;
+}
+
+.bubble small {
+  font-weight: normal;
+  font-size: 1rem;
+}
+
+/* card */
+
+.card {
+  --suite: "";
+  --value: "";
+  --color: black;
+  --pile: 10;
+  font-family: "Times New Roman", Times, serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 4em;
+  position: relative;
+  overflow: hidden;
+  background-color: white;
+  width: 100%; /* 63.5mm; */
+  padding-bottom: 140%; /* ratio of poker cards */
+  height: 0; /* 88.9mm; */
+  z-index: 2;
+  border-radius: 0.15em;
+  color: var(--color);
+  text-align: center;
+  box-sizing: border-box;
+  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.3);
+  border: 0.1em solid rgba(255, 255, 255, 0.95);
+}
+.card:before,
+.card:after {
+  display: inline-block;
+  font-size: 0.5em;
+  color: var(--color);
+  position: absolute;
+  text-align: center;
+  line-height: 1;
+  width: auto;
+  height: auto;
+  white-space: pre;
+}
+.card:before {
+  top: 0.1em;
+  right: 0.1em;
+  content: var(--value) "\A" var(--suite);
+}
+.card:after {
+  bottom: 0.1em;
+  left: 0.1em;
+  transform: rotate(0.5turn);
+  content: var(--value) "\A" var(--suite);
+}
+.card__content {
+  position: absolute;
+  line-height: 2em;
+  width: 1em;
+  height: 2em;
+  top: calc(50% - 1em);
+  left: calc(50% - 0.5em);
+}
+
+.card--back {
+  /* https://leaverou.github.io/css3patterns/ */
+  background: #36c;
+  background: linear-gradient(
+        115deg,
+        transparent 75%,
+        rgba(255, 255, 255, 0.8) 75%
+      )
+      0 0,
+    linear-gradient(245deg, transparent 75%, rgba(255, 255, 255, 0.8) 75%) 0 0,
+    linear-gradient(115deg, transparent 75%, rgba(255, 255, 255, 0.8) 75%) 0.1em -0.2em,
+    linear-gradient(245deg, transparent 75%, rgba(255, 255, 255, 0.8) 75%) 0.1em -0.2em,
+    #36c;
+  background-size: 0.2em 0.4em;
+}
+
+.card--placeholder {
+  background-color: transparent;
+  border: 1px dashed rgba(0, 0, 0, 0.5);
+  box-shadow: none;
+}
+
+/* pile */
+
+.pile {
+  position: relative;
+  padding: calc(140% + 20px) 20px 20px 20px;
+  height: 0;
+  overflow: hidden;
+}
+.pile .card {
+  top: 5px;
+  left: 5px;
+  position: absolute;
+  max-width: calc(100% - 10px);
+}
+
+.pile--turn-first-card .card:last-of-type:not(:first-of-type) {
+  z-index: 0;
+  transform: rotate(10grad) translateY(-5%) translateX(30%) scale(0.9);
+  transform-origin: top left;
+}
+
+/* footer */
+
+footer {
+  padding: 1em;
+  font-size: 0.8rem;
+}

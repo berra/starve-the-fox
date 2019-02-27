@@ -1,0 +1,21 @@
+{
+  "name": "svalta-rav",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "start": "parcel index.html --open",
+    "build": "parcel build index.html"
+  },
+  "dependencies": {
+    "folktale": "2.3.2",
+    "ramda": "0.26.1",
+    "ramda-fantasy": "0.8.0"
+  },
+  "devDependencies": {
+    "@babel/core": "7.2.0",
+    "@types/ramda": "0.25.47",
+    "parcel-bundler": "^1.6.1"
+  },
+  "keywords": []
+}
