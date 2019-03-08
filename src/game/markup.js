@@ -32,7 +32,7 @@ export function createMarkup(state) {
          
       </header>
 
-      <aside role="log">
+      <aside>
         <ul>
           ${Trace(trace)}
         </ul>
