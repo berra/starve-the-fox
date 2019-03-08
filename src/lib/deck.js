@@ -52,3 +52,6 @@ export function createDeck() {
   const addSuitesToValues = reducer(values);
   return shuffleArray(reduce(addSuitesToValues, [], suites));
 }
+
+export const topCardString = pile =>
+  `${getCardLabel(head(pile))}${getCardSuite(head(pile))}`;

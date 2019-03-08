@@ -1,25 +1,33 @@
-import { assoc, concat, curry, head, reverse } from "ramda";
-import { getCardSuite, getCardLabel } from "../lib/deck";
+import { assoc, concat, pipe, map, curry, head, reverse } from "ramda";
+import { topCardString } from "../lib/deck";
 import { playerNum } from "./game";
 
-export function TraceItem(s) {
-  return `<li>${s}</li>`;
-}
+/** Regular a list item */
+const TraceItem = s => `<li>${s}</li>`;
 
-export function Trace(trace) {
-  return reverse(trace)
-    .map(TraceItem)
-    .join("");
-}
+/** Screen reader should call out the latest card played */
+const TraceHead = s => `<li aria-atomic="true" aria-live="polite">${s}</li>`;
+
+/** Split and combine the latest items and the rest and add markup */
+const traceMarkup = ([head, ...tail]) =>
+  concat(
+    [TraceHead(head)], // Take the latest value and use as head.
+    map(TraceItem)(tail) // Take the rest of the items as body
+  ).join(""); // And avoid "," comma in markup.
+
+/**  array: TraceList -> string: HtmlListItems */
+export const Trace = pipe(
+  reverse,
+  traceMarkup
+);
 
 export const addTrace = curry(function addTrackToTrace(newTrack, state) {
   return assoc("trace", concat(state.trace, [newTrack]), state);
 });
 
-const topCardString = pile =>
-  `${getCardLabel(head(pile))}${getCardSuite(head(pile))}`;
+/**  */
 
-export function playTrace(state) {
+export const playTrace = state => {
   const playedCard = topCardString(state.pile[state.playerTurn]);
   return addTrace(`P${playerNum(state)} ${playedCard}`, state);
-}
+};

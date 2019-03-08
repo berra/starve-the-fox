@@ -32,7 +32,7 @@ export function createMarkup(state) {
          
       </header>
 
-      <aside role="log" aria-live="polite">
+      <aside role="log">
         <ul>
           ${Trace(trace)}
         </ul>
